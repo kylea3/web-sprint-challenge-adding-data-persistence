@@ -11,7 +11,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-
+    Project.createNewProject(req.body)
+        .then(project => {
+            res.status(201).json(project)
+        })
+        .catch(next)
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line

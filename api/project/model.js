@@ -1,14 +1,15 @@
 // build your `Project` model here
 const db = require('../../data/dbConfig')
 
-const createNewProject = () => {
-
+async function createNewProject (project) {
+    await db('projects')
+        .insert(project)
+    const result = await findProjects()
+    return result[result.length - 1]
 }
 
 async function findProjects () {
-    const projectos = await db('projects')
-    console.log(projectos.project_completed)
-    
+    const projectos = await db('projects')    
     const result = projectos.reduce((acc, curr) => {
         acc.push({ 
                 project_id: curr.project_id,
@@ -18,12 +19,6 @@ async function findProjects () {
             })
             return acc
     }, [])
-    // const result = {
-    //     project_id: projectos.project_id,
-    //     project_name: projectos.project_name,
-    //     project_description: projectos.project_description,
-    //     project_completed: projectos.project_completed === 0 ? false : true
-    //     }
         return result
 }
 
