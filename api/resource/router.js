@@ -3,11 +3,19 @@ const router = require('express').Router()
 const Resource = require('./model')
 
 router.get('/', (req, res, next) => {
-
+    Resource.findResources()
+        .then(resource => {
+            res.status(200).json(resource)
+        })
+        .catch(next)
 })
 
 router.post('/', (req, res, next) => {
-    
+    Resource.createNewResource(req.body)
+        .then(resource => {
+            res.status(201).json(resource)
+        })
+        .catch(next)
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line
