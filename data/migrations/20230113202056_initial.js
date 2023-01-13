@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
   .createTable('tasks', tbl => {
     tbl.increments('task_id');
     tbl.string('task_description')
-        .notNullable;
+        .notNullable();
     tbl.string('task_notes');
     tbl.integer('task_completed')
         .defaultTo(0);

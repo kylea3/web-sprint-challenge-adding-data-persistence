@@ -11,7 +11,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    
+    Task.createNewTask(req.body)
+        .then(task => {
+            res.status(201).json(task)
+        })
+        .catch(next)
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line
